@@ -7,8 +7,12 @@ __pycache__/
 *.so
 
 # Ignore datasets
-data/raw/
-data/processed/
+data/raw/*
+data/processed/*
+
+# Except the folder itself
+!data/raw/.gitkeep
+data/processed/.gitkeep
 
 # Distribution / packaging
 .Python
