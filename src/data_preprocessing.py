@@ -32,7 +32,17 @@ q_heavy_tail_pipeline = make_pipeline(
 )
 
 # V2, V5, V7 with Amount
-vn_amount_pipeline = make_pipeline(
+V2_amount_pipeline = make_pipeline(
+    StandardScaler(),
+    PCA(n_components=2)
+)
+
+V5_amount_pipeline = make_pipeline(
+    StandardScaler(),
+    PCA(n_components=2)
+)
+
+V7_amount_pipeline = make_pipeline(
     StandardScaler(),
     PCA(n_components=2)
 )
@@ -48,7 +58,9 @@ all_transformation = ColumnTransformer(
                                                'V16', 'V17', 'V18', 'V19', 'V20',
                                                'V21', 'V22', 'V23', 'V24', 'V25',
                                                'V27', 'V28', 'Amount']),
-        ('vn_amount', vn_amount_pipeline, ['V2', 'V5', 'V7'])
+        ('V2_amount', V2_amount_pipeline, ['V2', 'Amount']),
+        ('V5_amount', V5_amount_pipeline, ['V5', 'Amount']),
+        ('V7_amount', V7_amount_pipeline, ['V7', 'Amount'])
         
     ],
     remainder=default_pipeline,
