@@ -3,17 +3,19 @@ from .train import (
     fitted_lgbm_train,
     X_train,
     X_test,
-    y_test,
-    y_train
 )
-from .utils import save_model
+from .utils import save_model, load_model
 
-# Fitted models
-fitted_lr = fitted_lr_train()
-fitted_lgbm = fitted_lgbm_train()
 
-save_model(fitted_lr, model_name='Logistic-Regression')
-save_model(fitted_lgbm, model_name='LGBM')
+'''Saved Models'''
+# # Fitted models
+# fitted_lr = fitted_lr_train()
+# fitted_lgbm = fitted_lgbm_train()
+# save_model(fitted_lr, model_name='Logistic-Regression')
+# save_model(fitted_lgbm, model_name='LGBM')
+
+fitted_lr = load_model('Logistic-Regression')
+fitted_lgbm = load_model('LGBM')
 
 
 # For train data

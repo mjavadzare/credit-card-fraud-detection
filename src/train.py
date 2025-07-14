@@ -4,8 +4,8 @@ from imblearn.pipeline import Pipeline as imbPipeline
 from lightgbm import LGBMClassifier
 from sklearn.linear_model import LogisticRegression
 
-from..src.utils import load_data, get_X, get_y
-from.data_preprocessing import all_transformation
+from .utils import load_data, get_X, get_y
+from .data_preprocessing import all_transformation
 
 df = load_data()
 
