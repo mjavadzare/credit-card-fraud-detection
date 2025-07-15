@@ -97,7 +97,9 @@ pip install -r requirements.txt
 3. **Download the dataset from Kaggle and place it inside data/raw/.**
 4. **Run main.py**
 
-## 🧠 Dependencies
+---
+## 📦 Dependencies
+
 scikit-learn
 
 imblearn
@@ -108,9 +110,22 @@ pandas, numpy
 
 matplotlib
 
+---
+
 ## 📬 Contact
-Created by Mohammad Javad Zare
-For questions or suggestions, feel free to open an issue.
+
+Created by [Mohammad Javad Zare](https://github.com/mjavadzare)
+
+If you have any questions, suggestions, or feedback, feel free to:
+
+- 📂 [Open an Issue](https://github.com/mjavadzare/credit-card-fraud-detection/issues)
+- 🍴 [Fork the Project](https://github.com/mjavadzare/credit-card-fraud-detection/fork)
+
+Your contributions and feedback are always welcome!
+
+
+---
 
 ## 📜 License
+
 This project is licensed under the MIT License.
