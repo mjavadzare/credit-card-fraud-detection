@@ -1,22 +1,22 @@
-from .train import (
-    lr_pipeline,
-    lgbm_pipeline,
-    X_train,
-    y_train,
-    X_test,
-    y_test
-)
-from .utils import tune_threshold
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import precision_recall_curve
 
+from src.train import (
+    lr_train_pipeline,
+    lgbm_train_pipeline,
+    X_train,
+    y_train,
+    X_test
+)
+from src.utils import tune_threshold
+from src.predict import fitted_lr, fitted_lgbm
 
 
 
 ''' On Train '''
 # Finding Optimized threshold for Logistic Regression
 y_scores_lr = cross_val_predict(
-    lr_pipeline,
+    lr_train_pipeline,
     X_train,
     y_train,
     cv=5,
@@ -41,7 +41,7 @@ optimized_threshold_lr = tune_threshold(
 
 # Finding Optimized threshold for LGBM
 y_scores_lgbm = cross_val_predict(
-    lgbm_pipeline,
+    lgbm_train_pipeline,
     X_train,
     y_train,
     cv=5,
@@ -66,27 +66,8 @@ optimized_threshold_lgbm = tune_threshold(
 
 
 
-
-
 ''' On Test '''
-# Finding Optimized threshold for Logistic Regression
-y_scores_lr_test = cross_val_predict(
-    lr_pipeline,
-    X_test,
-    y_test,
-    cv=5,
-    method='decision_function',
-    n_jobs=-1
-)
-
-# Finding Optimized threshold for LGBM
-y_scores_lgbm_test = cross_val_predict(
-    lgbm_pipeline,
-    X_test,
-    y_test,
-    cv=5,
-    method='predict_proba',
-    n_jobs=-1
-)
+y_scores_lr_test = fitted_lr.decision_function(X_test)
+y_scores_lgbm_test = fitted_lgbm.predict_proba(X_test)
 
 y_scores_lgbm_fraud_test = y_scores_lgbm_test[:, 1]  # probability of being a fraud

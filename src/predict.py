@@ -1,21 +1,35 @@
-from .train import (
-    fitted_lr_train,
-    fitted_lgbm_train,
+import os
+
+from src.train import (
+    trained_lr_for_predict,
+    trained_lgbm_for_predict,
     X_train,
     X_test,
 )
-from .utils import save_model, load_model
+from src.utils import save_model, load_model
 
 
-'''Saved Models'''
-# # Fitted models
-# fitted_lr = fitted_lr_train()
-# fitted_lgbm = fitted_lgbm_train()
-# save_model(fitted_lr, model_name='Logistic-Regression')
-# save_model(fitted_lgbm, model_name='LGBM')
 
-fitted_lr = load_model('Logistic-Regression')
-fitted_lgbm = load_model('LGBM')
+# Save or Load Models
+# LR
+path_lr = 'models/Logistic-Regression.pkl'
+if os.path.exists(path_lr):
+    fitted_lr = load_model(model_name='Logistic-Regression')
+    print('LR model loaded.')
+else:
+    fitted_lr = trained_lr_for_predict()
+    save_model(fitted_lr, model_name='Logistic-Regression')
+
+# LGBM
+path_lgbm = 'models/LGBM.pkl'
+if os.path.exists(path_lgbm):
+    fitted_lgbm = load_model(model_name='LGBM')
+    print('LGBM model loaded.')
+else:
+    fitted_lgbm = trained_lgbm_for_predict()
+    save_model(fitted_lgbm, model_name='LGBM')
+
+
 
 
 # For train data
@@ -28,6 +42,8 @@ def predict_lgbm_train():
 
 optimized_threshold_lr = 5.342830925946151
 optimized_threshold_lgbm = 0.7945137194363832
+
+
 
 # For test data
 def predict_lr_test(X=X_test):

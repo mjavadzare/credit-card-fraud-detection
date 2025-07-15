@@ -1,11 +1,13 @@
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline as imbPipeline
 from lightgbm import LGBMClassifier
 from sklearn.linear_model import LogisticRegression
 
-from .utils import load_data, get_X, get_y
-from .data_preprocessing import all_transformation
+from src.utils import load_data, get_X, get_y
+from src.data_preprocessing import all_transformation
+
 
 df = load_data()
 
@@ -20,7 +22,7 @@ y_train, y_test = get_y(train), get_y(test)
 
 
 # Logistic Regression
-lr_pipeline = imbPipeline([
+lr_train_pipeline = imbPipeline([
     ('transformation', all_transformation),
     ('smote', SMOTE(random_state=10)),
     # elasticnet showed better performance in terms of runtime.
@@ -36,7 +38,7 @@ lr_pipeline = imbPipeline([
 
 
 # LGBM (better performance)
-lgbm_pipeline = imbPipeline([
+lgbm_train_pipeline = imbPipeline([
     ('transformation', all_transformation),
     ('smote', SMOTE(random_state=10)),
     ('lgbm', LGBMClassifier(
@@ -51,9 +53,33 @@ lgbm_pipeline = imbPipeline([
     ))
 ])
 
+# LR
+# Train Model with SMOTE
+lr_train_pipeline.fit(X_train, y_train)
+fitted_transformation_lr = lr_train_pipeline.named_steps['transformation']
+fitted_lr = lr_train_pipeline.named_steps['logistic_r']
 
-def fitted_lr_train():
-    return lr_pipeline.fit(X_train, y_train)
+# Trained model in a pipeline without SMOTE
+lr_predict_pipeline = Pipeline([
+    ('transformation', fitted_transformation_lr),
+    ('logistic_r', fitted_lr)
+])
 
-def fitted_lgbm_train():
-    return lgbm_pipeline.fit(X_train, y_train)
+# LGBM
+# Train Model with SMOTE
+lgbm_train_pipeline.fit(X_train, y_train)
+fitted_transformation_lgbm = lgbm_train_pipeline.named_steps['transformation']
+fitted_lgbm = lgbm_train_pipeline.named_steps['lgbm']
+
+# Trained model in a pipeline without SMOTE
+lgbm_predict_pipeline = Pipeline([
+    ('transformation', fitted_transformation_lgbm),
+    ('lgbm', fitted_lgbm)
+])
+
+
+def trained_lr_for_predict():
+    return lr_predict_pipeline
+
+def trained_lgbm_for_predict():
+    return lgbm_predict_pipeline

@@ -1,10 +1,9 @@
+import pandas as pd
 from sklearn.preprocessing import (
     StandardScaler,
-    # MinMaxScaler,
     FunctionTransformer,
     QuantileTransformer
 )
-import pandas as pd
 from sklearn.pipeline import make_pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.metrics.pairwise import rbf_kernel
