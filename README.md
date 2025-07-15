@@ -106,7 +106,9 @@ imblearn
 
 lightgbm
 
-pandas, numpy
+numpy
+
+pandas
 
 matplotlib
 
