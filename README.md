@@ -116,7 +116,7 @@ matplotlib
 
 ## 📬 Contact
 
-Created by [Mohammad Javad Zare](https://github.com/mjavadzare)
+Developed by [Mohammad Javad Zare](https://github.com/mjavadzare)
 
 If you have any questions, suggestions, or feedback, feel free to:
 
