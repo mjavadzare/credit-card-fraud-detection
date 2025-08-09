@@ -102,7 +102,7 @@ pip install -r requirements.txt
 
 scikit-learn
 
-imblearn
+imbalanced-learn
 
 lightgbm
 
